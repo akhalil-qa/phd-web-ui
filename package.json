@@ -1,0 +1,59 @@
+{
+  "name": "space-manager",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "@craco/craco": "^6.1.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.1",
+    "google-maps": "^4.3.3",
+    "lodash": "^4.17.21",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "remixicon": "^2.5.0",
+    "store": "^2.0.12",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.1.0",
+    "autoprefixer": "^9",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.12.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.23.2",
+    "postcss": "^7",
+    "sass": "^1.32.11",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+  }
+}
