@@ -27,23 +27,28 @@ export default {
     return [
       {
         latitude: '25.31126',
-        longitude: '51.49516'
+        longitude: '51.49516',
+        altitude: '0'
       },
       {
         latitude: '25.31638',
-        longitude: '51.40006'
+        longitude: '51.40006',
+        altitude: '0'
       },
       {
         latitude: '25.23456',
-        longitude: '51.40383'
+        longitude: '51.40383',
+        altitude: '0'
       },
       {
         latitude: '25.22696',
-        longitude: '51.5058'
+        longitude: '51.5058',
+        altitude: '0'
       },
       {
         latitude: '25.31126',
-        longitude: '51.49516'
+        longitude: '51.49516',
+        altitude: '0'
       }
     ]
   },
