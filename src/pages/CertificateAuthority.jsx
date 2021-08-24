@@ -21,6 +21,7 @@ export default class CertificateAuthority extends Component {
     this.state = {
       records: [],
       authorityId: '',
+      passphrase: '',
       publicKey: '',
       privateKey: ''
     }
@@ -37,8 +38,9 @@ export default class CertificateAuthority extends Component {
     this.setState({ [name]: value })
   }
 
-  handleGenerateKeypairClick () {
-    const { publicKey, privateKey } = this.authority.generateKeypair(this.state.authorityId)
+  async handleGenerateKeypairClick () {
+    const { passphrase } = this.state
+    const { publicKey, privateKey } = await this.authority.generateKeypair(passphrase)
     this.setState({ publicKey, privateKey }, () => {
       this.downloadRef.current.click()
     })
@@ -111,6 +113,15 @@ export default class CertificateAuthority extends Component {
                   <Input
                     name="authorityId"
                     value={this.state.authorityId}
+                    onChange={this.handleInputChange} />
+                </div>
+                <div className="sm:col-span-3">
+                  <Label text="Passphrase" />
+                </div>
+                <div className="sm:col-span-5">
+                  <Input
+                    name="passphrase"
+                    value={this.state.passphrase}
                     onChange={this.handleInputChange} />
                 </div>
                 <div className="sm:col-span-3">

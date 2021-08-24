@@ -11,6 +11,11 @@ export default class ApiService {
     return this.request.get(path)
   }
 
+  generateKeyPair () {
+    const path = `${process.env.REACT_APP_BASE_URL}/debug/generateKeyPair`
+    return this.request.get(path)
+  }
+
   registerKey (authorityId, publicKey) {
     const path = `${process.env.REACT_APP_BASE_URL}/registerKey`
     const body = { authorityId, publicKey }

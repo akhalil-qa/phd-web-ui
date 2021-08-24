@@ -155,10 +155,11 @@ export default class SpaceList extends Component {
   }
 
   async handleSaveClick () {
+    const passphrase = store.get('passphrase')
     const privateKey = store.get('privateKey')
     const spaceList = util.populateBoundary(this.state.spaceList)
     console.log(spaceList)
-    const signature = await this.authority.sign(spaceList, privateKey)
+    const signature = await this.authority.sign(spaceList, passphrase, privateKey)
     console.log(signature)
     if (!signature) return
     const response = await this.api.updateAuthority(this.state.id, spaceList, signature)
@@ -171,6 +172,7 @@ export default class SpaceList extends Component {
 
   async handleLogOutClick () {
     store.remove('privateKey')
+    store.remove('passphrase')
     store.remove('authority')
     this.props.onLogOut()
   }

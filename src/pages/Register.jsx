@@ -18,6 +18,7 @@ export default class Register extends Component {
     super(props)
     this.state = {
       id: '',
+      passphrase: '',
       privateKey: ''
     }
     this.api = new ApiService()
@@ -51,8 +52,8 @@ export default class Register extends Component {
   }
 
   async handleRegisterClick () {
-    const { id, privateKey } = this.state
-    const signature = await this.authority.sign(id, privateKey)
+    const { id, passphrase, privateKey } = this.state
+    const signature = await this.authority.sign(id, passphrase, privateKey)
     if (!signature) return
     const response = await this.api.registerAuthority(id, signature)
     if (response && response.result === 'success') {
@@ -76,7 +77,16 @@ export default class Register extends Component {
                 onChange={this.handleInputChange} />
             </div>
             <div className="sm:col-span-3">
-              <Label text="Private Key" />
+              <Label text="Passphrase" />
+            </div>
+            <div className="sm:col-span-5">
+              <Input
+                name="passphrase"
+                value={this.state.passphrase}
+                onChange={this.handleInputChange} />
+            </div>
+            <div className="sm:col-span-3">
+              <Label text="Encrypted Private Key" />
             </div>
             <div className="sm:col-span-5">
               <Textarea
