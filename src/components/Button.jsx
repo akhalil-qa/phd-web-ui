@@ -12,7 +12,9 @@ export default class Button extends Component {
   get className () {
     const sizeClass = (this.props.size === 'large')
       ? 'py-6'
-      : 'py-2'
+      : (this.props.size === 'small')
+          ? 'py-1'
+          : 'py-2'
     return `${this.props.className} bg-green-100 border-green-200 px-5 focus:outline-none border-2 focus:border-green-300 rounded ${sizeClass}`
   }
 

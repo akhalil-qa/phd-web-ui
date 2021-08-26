@@ -20,6 +20,7 @@ export default class Boundary extends Component {
   }
 
   handleDeleteClick (coordinate) {
+    if (!coordinate._id) return
     const confirm = window.confirm('Are you sure to delete the data?')
     if (confirm) {
       const boundary = reject(this.props.boundary, coordinate)

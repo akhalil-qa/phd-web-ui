@@ -36,9 +36,10 @@ export default class Delegations extends Component {
   }
 
   handleDeleteCoordinateClick (delegationId, coordinate) {
+    const delegation = find(this.props.delegations, { _id: delegationId })
+    if (!delegation) return
     const confirm = window.confirm('Are you sure to delete the data?')
     if (confirm) {
-      const delegation = find(this.props.delegations, { _id: delegationId })
       const boundary = reject(delegation.space.boundary, coordinate)
       const coordinates = map(boundary, coordinate => {
         return `${coordinate.latitude},${coordinate.longitude}`

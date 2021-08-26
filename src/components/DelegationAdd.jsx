@@ -7,7 +7,7 @@ import Icon from './Icon'
 import TableData from './TableData'
 import TableHeading from './TableHeading'
 
-export default class Delegation extends Component {
+export default class DelegationAdd extends Component {
   static propTypes = {
     onAdd: PropTypes.func.isRequired
   }

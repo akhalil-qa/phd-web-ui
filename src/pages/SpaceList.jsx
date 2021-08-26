@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { find, map, reject } from 'lodash'
+import { find, forEach, map, reject } from 'lodash'
 import store from 'store'
 import PropTypes from 'prop-types'
+import produce from 'immer'
 import ApiService from '../services/api'
 import AuthorityService from '../services/authority'
+import util from '../services/util'
 import Button from '../components/Button'
 import Space from '../components/Space'
-import util from '../services/util'
+import SpaceListAdd from '../components/SpaceListAdd'
 
 export default class SpaceList extends Component {
   static propTypes = {
@@ -32,6 +34,7 @@ export default class SpaceList extends Component {
     this.handleDelegationChange = this.handleDelegationChange.bind(this)
     this.handleLogOutClick = this.handleLogOutClick.bind(this)
     this.handleSaveClick = this.handleSaveClick.bind(this)
+    this.handleSpaceAddClick = this.handleSpaceAddClick.bind(this)
   }
 
   get spaceAuthorityId () {
@@ -73,37 +76,41 @@ export default class SpaceList extends Component {
   }
 
   handleCreateRestriction (spaceId, restriction) {
-    const spaceList = this.state.spaceList
-    const space = find(spaceList, space => {
-      if (space.space._id === spaceId) return space
+    const spaceList = produce(this.state.spaceList, spaceList => {
+      const space = find(spaceList, space => {
+        if (space.space._id === spaceId) return space
+      })
+      space.restrictions.unshift(restriction)
     })
-    space.restrictions.unshift(restriction)
     this.setState({ spaceList })
   }
 
   handleDeleteRestriction (spaceId, restriction) {
-    const spaceList = this.state.spaceList
-    map(spaceList, space => {
-      const isSpace = (space.space._id === spaceId)
-      if (isSpace) space.restrictions = reject(space.restrictions, restriction)
+    const spaceList = produce(this.state.spaceList, spaceList => {
+      forEach(spaceList, space => {
+        const isSpace = (space.space._id === spaceId)
+        if (isSpace) space.restrictions = reject(space.restrictions, restriction)
+      })
     })
     this.setState({ spaceList })
   }
 
   handleCreateDelegation (spaceId, delegation) {
-    const spaceList = this.state.spaceList
-    map(spaceList, space => {
-      const isSpace = (space.space._id === spaceId)
-      if (isSpace) space.delegations.unshift(delegation)
+    const spaceList = produce(this.state.spaceList, spaceList => {
+      forEach(spaceList, space => {
+        const isSpace = (space.space._id === spaceId)
+        if (isSpace) space.delegations.unshift(delegation)
+      })
     })
     this.setState({ spaceList })
   }
 
   handleDeleteDelegation (spaceId, delegation) {
-    const spaceList = this.state.spaceList
-    map(spaceList, space => {
-      const isSpace = (space.space._id === spaceId)
-      if (isSpace) space.delegations = reject(space.delegations, delegation)
+    const spaceList = produce(this.state.spaceList, spaceList => {
+      forEach(spaceList, space => {
+        const isSpace = (space.space._id === spaceId)
+        if (isSpace) space.delegations = reject(space.delegations, delegation)
+      })
     })
     this.setState({ spaceList })
   }
@@ -186,6 +193,16 @@ export default class SpaceList extends Component {
     this.setState(authority)
   }
 
+  handleSpaceAddClick (spaceId) {
+    this.setState(state => {
+      const space = util.defaultSpace(spaceId)
+      const spaceList = produce(state.spaceList, spaceList => {
+        spaceList.push(space)
+      })
+      return { spaceList }
+    })
+  }
+
   componentDidMount () {
     this.listAuthority()
   }
@@ -206,6 +223,7 @@ export default class SpaceList extends Component {
               onClick={this.handleSaveClick} />
           </div>
         </div>
+      <SpaceListAdd onAddClick={this.handleSpaceAddClick} />
         <div className="flex justify-between items-baseline my-3">
           <h2 className="text-2xl font-medium">Space List</h2>
           <div className="text-sm text-gray-600">{this.timestamp}</div>

@@ -23,6 +23,17 @@ export default {
     return coordinates
   },
 
+  defaultSpace (spaceId) {
+    return {
+      space: {
+        boundary: this.defaultCoords(),
+        id: spaceId
+      },
+      restrictions: [],
+      delegations: []
+    }
+  },
+
   defaultCoords () {
     return [
       {
